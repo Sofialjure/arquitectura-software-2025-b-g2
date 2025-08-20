@@ -42,4 +42,5 @@ Despliegue lento cuando crece.
         -> hexaganonal {se puede?}
         -> cliente/servidor
 ### Actividad
-- ahí se pueden aplicar capas, MVC, hexagonal y cliente/servidor para un software monolítico? o qué arquitecturas sí sirven?.
+- ahí se pueden aplicar capas, MVC, hexagonal y cliente/servidor para un software monolítico? o qué arquitecturas sí sirven?
+## Solución
