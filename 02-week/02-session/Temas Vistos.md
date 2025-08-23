@@ -1,46 +1,102 @@
-## Software MONOLÍTICA (Arquitectura)
---------
- Un software monolítico es un tipo de arquitectura en la que todas las funciones y componentes de una aplicación están integrados en un solo bloque de código que se ejecuta como una única unidad.
-----
-#### Para entenderlo un poco mejor podemos explicarlo con un ejemplo común
- Imaginemos un pastel entero. Para comerlo, tenemos que cortarlo, pero todo está hecho en la misma bandeja y mezclado: bizcocho, relleno, crema.
+# Sesión 2 – Clase 2: Arquitectura de Software
 
- En un software monolítico, la lógica de negocio, la interfaz de usuario, el acceso a datos y otros módulos están juntos en un único proyecto y se despliegan (instalan) todos al mismo tiempo.
+## Tema central
+En esta clase vimos cómo distintos **estilos y patrones arquitectónicos** definen no solo el diseño conceptual del software, sino también **cómo organizar los paquetes/carpetas** dentro de un proyecto.  
 
-----------
-### Características
-**Un solo ejecutable o paquete:** todo el código está unido.
+El profesor explicó que no es lo mismo **arquitectura de software** (visión global) que **patrones arquitectónicos** o **estructurales**, pero que la arquitectura sí guía la manera en que organizamos los módulos, repositorios y paquetes.  
 
-**Despliegue conjunto:** si cambias una parte, debes volver a desplegar todo.
+---
 
-**Acoplamiento alto:** los módulos dependen mucho entre sí.
+## Arquitecturas y patrones estudiados
 
-**Escalabilidad vertical:** si necesita más rendimiento, debes aumentar la capacidad del mismo servidor (más RAM, CPU).
+### 1. Arquitectura Monolítica
+- **Definición:** toda la aplicación en un único artefacto o ejecutable.
+- **Características:** acoplamiento alto, despliegue conjunto, escalabilidad vertical.  
+- **Organización en paquetes:** se puede organizar en `frontend/`, `backend/`, `docs/`, `database/`.  
+- **Ejemplo:** un sistema web donde backend y vistas están dentro del mismo proyecto.  
+- **Nota:** si el frontend es separado (SPA), ya entra el modelo cliente-servidor.
 
-### Ventajas
-**Simplicidad inicial:** fácil de desarrollar y poner en marcha al inicio.
+---
 
-**Menos configuración:** un solo entorno y despliegue.
+### 2. Arquitectura en Capas
+- **Definición:** organiza el software en niveles que se comunican de forma jerárquica.  
+- **Modelos comunes:**  
+  - 3 capas: **Presentación → Aplicación/Negocio → Datos**  
+  - 4 capas (DDD/Clean): **Presentación → Aplicación → Dominio → Infraestructura**  
+- **Organización en paquetes:** cada módulo/feature puede tener subpaquetes por capa:  
+  `users/app/`, `users/domain/`, `users/infra/`.  
+- **Evitar:** mezclar repositorios de BD dentro del dominio.
 
-**Buen rendimiento:** no requiere comunicación entre servicios vía red.
+---
 
-### Desventajas
-**Difícil de escalar horizontalmente** (varias máquinas trabajando en paralelo).
+### 3. Patrón MVC (Model-View-Controller)
+- **Definición:** separación de responsabilidades en **modelo, vista y controlador**.  
+- **Modelo:** estado + lógica de negocio.  
+- **Vista:** interfaz gráfica / UX.  
+- **Controlador:** recibe solicitudes, invoca lógica, selecciona vista.  
+- **Uso común:** aplicaciones web monolíticas o frameworks frontend (Angular, Vue, React).  
+- **Ambigüedad a evitar:** el modelo no es solo “lógica de datos” ni solo “tablas de BD”.
 
-**Poca flexibilidad para cambios:** modificar un módulo puede afectar todo el sistema.
+---
 
-Despliegue lento cuando crece.
+### 4. Arquitectura Hexagonal (Puertos y Adaptadores)
+- **Definición:** separar el núcleo de negocio de la infraestructura externa.  
+- **Núcleo:** dominio (entidades) + casos de uso (aplicación).  
+- **Puertos:** interfaces que definen entradas/salidas.  
+- **Adaptadores:**  
+  - Entrada: UI, API REST.  
+  - Salida: bases de datos, servicios externos.  
+- **Organización en paquetes:**  
+- domain/ // entidades y lógica
+- app/ // casos de uso
+- ports/in/, ports/out/
+- adapters/in/http, adapters/out/db
+- infra/ // configuración
 
-**Riesgo alto:** si una parte falla, puede caer todo.
+- **Nota:** el “front” aquí se entiende como adaptador de entrada.
 
------------------
-## Actividad En Clase 
-### (Apuntes del profesor)
--> package => (más común [frontend, backend], doc{architecture, backlog, manual, other}, data-base{script, backup, MR, other}, other)
-        -> capas {se puede?}
-        -> mvc {se puede?}
-        -> hexaganonal {se puede?}
-        -> cliente/servidor
-### Actividad
-- ahí se pueden aplicar capas, MVC, hexagonal y cliente/servidor para un software monolítico? o qué arquitecturas sí sirven?
-## Solución
+---
+
+### 5. Arquitectura Cliente-Servidor
+- **Definición:** modelo de comunicación donde un cliente consume servicios de un servidor.  
+- **Cliente:** frontend (navegador o app).  
+- **Servidor:** backend (API, lógica de negocio).  
+- **Organización:** proyectos separados, ej.:  
+- `frontend/ (src, components, views, main.js)`  
+- `backend/ (src, controllers, services, models, router, main.js)`  
+- **Clave:** es un modelo de comunicación, no dicta cómo organizar internamente el backend (que puede ser monolítico, hexagonal, por capas, etc.).
+
+---
+
+### 6. Arquitectura Orientada a Servicios (SOA)
+- **Definición:** aplicaciones compuestas por servicios autónomos con interfaces bien definidas.  
+- **Relación:** base conceptual de los microservicios.  
+- **Organización en repos:** cada servicio puede tener sus propias capas/hexagonal.
+
+---
+
+## Conexiones clave
+- **Arquitectura de software** = decisión global (monolito, SOA, microservicios, cliente-servidor).  
+- **Patrón arquitectónico** = solución probada para organizar internamente (MVC, hexagonal, capas).  
+- **Patrón estructural** = cómo organizar clases/componentes (Adapter, Composite, también “capas”).  
+- **Paquetes/carpetas** = reflejan los límites de la arquitectura; no son la arquitectura en sí.  
+
+---
+
+## Actividad en clase
+ *“¿Se pueden aplicar capas, MVC, hexagonal y cliente-servidor dentro de un software monolítico?”*  
+
+- **Respuesta:**  
+- Sí, un monolito puede organizarse por capas o usar MVC internamente.  
+- También puede aplicar hexagonal (núcleo y adaptadores) aunque siga siendo un solo artefacto.  
+- Cliente-servidor solo aplica si hay separación de frontend y backend como artefactos distintos.  
+
+---
+
+## Conclusión de la sesión
+- Un **monolito** no significa “desorden”, puede tener **capas, MVC o hexagonal** dentro.  
+- **Cliente-servidor** no es una organización interna, sino cómo se comunican frontend y backend.  
+- La **organización de paquetes** debe seguir las fronteras de la arquitectura:  
+- No mezclar dominio con infraestructura.  
+- Evitar acoplar frontend y backend en un mismo paquete.  
+- La arquitectura elegida marca los límites; los paquetes los hacen visibles y respetables 

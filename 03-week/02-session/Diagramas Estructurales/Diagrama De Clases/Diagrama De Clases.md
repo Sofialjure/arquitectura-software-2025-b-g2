@@ -17,22 +17,6 @@ Es considerado la **base de la mayoría de los modelos UML**, ya que permite rep
 
 ---
 
-### 1. Elementos Principales
-
-#### a) Clases
-Las clases son los bloques de construcción del diagrama. Se representan con un rectángulo dividido en tres secciones:
-* **Sección Superior:** El **nombre** de la clase.
-* **Sección Media:** Los **atributos** o propiedades de la clase.
-* **Sección Inferior:** Las **operaciones** o métodos que la clase puede realizar.
-
-**Visibilidad de Atributos y Operaciones:**
-* `+` **Público**: Accesible desde cualquier clase.
-* `#` **Protegido**: Accesible por la clase y sus subclases.
-* `-` **Privado**: Solo accesible dentro de la propia clase.
-* `~` **Paquete**: Accesible dentro del mismo paquete.
-
----
-
 # Diagrama de Clases en UML  
 
 ## 1. Elementos del Diagrama de Clases  
@@ -141,142 +125,99 @@ Dominarlo es fundamental para cualquier profesional en el diseño y construcció
 ## Ejemplo de Asociación
 
 **Clases: Usuario – Compra**
-
-| **Usuario**              |                                    | **Compra**               |
-|---------------------------|------------------------------------|--------------------------|
-| - id: int                 | 1..* realiza                      | - fecha: Date            |
-| - nombre: str             |                                    | - total: double          |
-| + iniciarSesion()         |                                    | + calcularTotal()        |
-| + verHistorialCompras()   |                                    | + anadirItem()           |
-
-👉 **Un Usuario realiza una o más Compras**
+ **Un Usuario realiza una o más Compras**
 
 ---
 
 ## Ejemplo de Agregación
 
 **Clases: Universidad – Departamento**
-
-| **Universidad**           |                                    | **Departamento**         |
-|---------------------------|------------------------------------|--------------------------|
-| - nombre: str             | <> 1..* tiene                     | - nombre: str            |
-| - ubicacion: str          |                                    | - telefono: str          |
-| + obtenerDepartamentos()  |                                    | + getJefeDepartamento()  |
-
-👉 **Una Universidad tiene uno o más Departamentos. Un Departamento puede existir sin la Universidad.**
+ **Una Universidad tiene uno o más Departamentos. Un Departamento puede existir sin la Universidad.**
 
 ---
 
 ## Ejemplo de Composición
 
 **Clases: Vehículo – Motor**
-
-| **Vehículo**              |                                    | **Motor**                |
-|---------------------------|------------------------------------|--------------------------|
-| - marca: str              | <#> 1                              | - tipo: str              |
-| - modelo: str             |                                    | - potencia: int          |
-| + arrancar()              |                                    | + encender()             |
-
-👉 **Un Vehículo tiene un Motor. Si el Vehículo se destruye, el Motor también deja de existir.**
+ **Un Vehículo tiene un Motor. Si el Vehículo se destruye, el Motor también deja de existir.**
 
 ---
 
 ## Ejemplo de Herencia
 
 **Clases: Persona – Estudiante**
-
-| **Persona**               |
-|---------------------------|
-| - nombre: str             |
-| - edad: int               |
-| + caminar()               |
-| + hablar()                |
-
-Hereda hacia ↓
-
-| **Estudiante**            |
-|---------------------------|
-| - matricula: str          |
-| - carrera: str            |
-| + estudiar()              |
-
-👉 **Un Estudiante es una Persona.**
+ **Un Estudiante es una Persona.**
 
 ---
 
 ## Ejemplo de Dependencia
 
 **Clases: Reporte – BaseDeDatos**
-
-| **Reporte**               |                                    | **BaseDeDatos**          |
-|---------------------------|------------------------------------|--------------------------|
-| + generarReporte()        | ---<...--- depende de             | + conectar()             |
-| + imprimir()              |                                    | + desconectar()          |
-
-👉 **La clase Reporte depende de la clase BaseDeDatos para generar un reporte.**
+ **La clase Reporte depende de la clase BaseDeDatos para generar un reporte.**
 
 ---------
-# EJEMPLO CON CARRITO DE COMPRAS
-## Código:
 # Diagrama de Clases - Carrito de Compras
 
-```plantuml
-@startuml
-skinparam classAttributeIconSize 0
+Este diagrama de clases modela el funcionamiento de un sistema de **carrito de compras**.  
+Permite representar los usuarios que interactúan con el sistema, los productos que se añaden al carrito, la gestión de pedidos y el procesamiento de pagos.
 
-class Usuario {
-    +int idUsuario
-    +string nombre
-    +string email
-    +string contraseña
-    +registrar()
-    +iniciarSesion()
-    +cerrarSesion()
-}
+---
 
-class Producto {
-    +int idProducto
-    +string nombre
-    +double precio
-    +int stock
-    +actualizarStock(cantidad:int)
-    +obtenerInfo():string
-}
+## Clases y atributos principales
 
-class ItemCarrito {
-    +int cantidad
-    +double subtotal
-    +calcularSubtotal():double
-}
+### 1. Usuario
+- **Atributos**: `idUsuario`, `nombre`, `email`, `contraseña`.  
+- **Métodos**: 
+  - `registrar()` → Permite registrar un nuevo usuario.  
+  - `iniciarSesion()` → Inicia la sesión del usuario.  
+  - `cerrarSesion()` → Cierra la sesión.  
 
-class Carrito {
-    +int idCarrito
-    +Date fechaCreacion
-    +double total
-    +agregarProducto(p:Producto, cantidad:int)
-    +eliminarProducto(p:Producto)
-    +calcularTotal():double
-}
+### 2. Producto
+- **Atributos**: `idProducto`, `nombre`, `precio`, `stock`.  
+- **Métodos**:  
+  - `actualizarStock(cantidad:int)` → Resta o suma stock.  
+  - `obtenerInfo():string` → Devuelve información del producto.  
 
-class Pedido {
-    +int idPedido
-    +Date fecha
-    +string estado
-    +confirmar()
-    +cancelar()
-}
+### 3. ItemCarrito
+- **Atributos**: `cantidad`, `subtotal`.  
+- **Métodos**:  
+  - `calcularSubtotal():double` → Calcula el subtotal del ítem (cantidad * precio).  
 
-class Pago {
-    +int idPago
-    +double monto
-    +string metodo
-    +procesarPago():bool
-    +generarRecibo():string
-}
+### 4. Carrito
+- **Atributos**: `idCarrito`, `fechaCreacion`, `total`.  
+- **Métodos**:  
+  - `agregarProducto(p:Producto, cantidad:int)` → Añade productos al carrito.  
+  - `eliminarProducto(p:Producto)` → Elimina un producto del carrito.  
+  - `calcularTotal():double` → Suma los subtotales de todos los ítems.  
 
-Usuario --> Carrito
-Carrito *-- ItemCarrito
-ItemCarrito --> Producto
-Carrito --> Pedido
-Pedido --> Pago
-@enduml
+### 5. Pedido
+- **Atributos**: `idPedido`, `fecha`, `estado`.  
+- **Métodos**:  
+  - `confirmar()` → Confirma el pedido.  
+  - `cancelar()` → Cancela el pedido.  
+
+### 6. Pago
+- **Atributos**: `idPago`, `monto`, `metodo`.  
+- **Métodos**:  
+  - `procesarPago():bool` → Procesa el pago y devuelve verdadero o falso.  
+  - `generarRecibo():string` → Genera un recibo del pago realizado.  
+
+---
+
+## Relaciones entre clases
+
+- **Usuario → Carrito**: Un usuario puede tener un carrito.  
+- **Carrito *-- ItemCarrito**: Un carrito está compuesto por varios ítems.  
+- **ItemCarrito → Producto**: Cada ítem corresponde a un producto específico.  
+- **Carrito → Pedido**: Del carrito se genera un pedido.  
+- **Pedido → Pago**: El pedido finaliza con un pago.  
+
+---
+
+## Conclusión
+
+Este diagrama de clases modela el flujo básico de un **carrito de compras en línea**.  
+Permite comprender cómo un usuario interactúa con productos, los agrega a un carrito, genera un pedido y finalmente realiza un pago.  
+
+---
+
