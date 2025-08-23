@@ -99,4 +99,4 @@ El profesor explicó que no es lo mismo **arquitectura de software** (visión gl
 - La **organización de paquetes** debe seguir las fronteras de la arquitectura:  
 - No mezclar dominio con infraestructura.  
 - Evitar acoplar frontend y backend en un mismo paquete.  
-- La arquitectura elegida marca los límites; los paquetes los hacen visibles y respetables 
+- La arquitectura elegida marca los límites; los paquetes los hacen visibles y respetables.
