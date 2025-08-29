@@ -35,21 +35,78 @@ Un diagrama de despliegue está compuesto por:
 # SOLUCIÓN DIAGRAMA DE DESPLIEGUE
 ---
 ---
+# 📌 Diagrama de Despliegue (Cloud + On-Prem)
 
+Este tipo de diagrama no modela lógica de negocio ni flujos, sino la **infraestructura física y lógica** donde se despliega el sistema: qué nodos existen, qué roles cumplen y cómo se organiza la arquitectura.
 
+---
 
+## 🔹 Estructura General
 
+Está dividido en **2 entornos principales**:
 
+- **Cloud – Proveedor Nube** → Servicios modernos desplegados en la nube.  
+- **On-Prem – Data Center del Aeropuerto** → Infraestructura local, dentro del aeropuerto.  
 
+---
 
+## Cloud – Proveedor Nube
 
+### API Gateway (WAF, RateLimit)
+- Primer punto de entrada.  
+- Aplica seguridad (**Web Application Firewall**), control de tráfico y límites de peticiones.  
 
+### Balanceador L7 (HTTPS)
+- Balanceador de capa 7 (**HTTP/HTTPS**).  
+- Distribuye solicitudes hacia los servicios dentro del clúster Kubernetes.  
 
+### Cluster Kubernetes (AKS/EKS/GKE)
+- **Orquestador de contenedores**.  
+- Allí se despliegan los microservicios y adaptadores:  
+  - **FlightSvc** → Servicio de gestión de vuelos.  
+  - **PaxSvc** → Servicio de pasajeros.  
+  - **BoardingSvc** → Servicio de embarque.  
+  - **FIDS-Adapter** → Integra con pantallas de información de vuelos (FIDS).  
+  - **Security-Adapter** → Conexión con sistemas de seguridad.  
+  - **Migracion-Adapter** → Conexión con sistemas de migración/migración de pasajeros.  
+  - **EventBus Client** → Cliente de mensajería/eventos (**Kafka, RabbitMQ, etc.**).  
 
+### DMZ (Demilitarized Zone)
+- Zona de seguridad intermedia, protege los sistemas internos.  
+- Incluye:  
+  - **Reverse Proxy** → Encaminamiento de tráfico interno.  
+  - **Firewall** → Control de accesos, reglas de red.  
+
+### Observabilidad
+- Módulo de monitoreo centralizado.  
+- Incluye:  
+  - **Tracing (OpenTelemetry)** → Seguimiento de llamadas distribuidas.  
+  - **Logs (ELK/CloudLogs)** → Centralización de logs.  
+  - **Métricas (Prom/Grafana)** → Métricas y dashboards.  
+
+---
+
+## On-Prem – Data Center Aeropuerto
+- Nodo **Data Center Aeropuerto**.  
+- Representa la infraestructura propia del aeropuerto que se conecta con la nube.  
+- Allí podrían estar sistemas legados (**check-in, migración, seguridad física, etc.**) que interactúan con los adaptadores en la nube.  
+
+---
+
+## Resumen de lo que modela
+Este diagrama refleja:  
+- **Arquitectura híbrida** → parte en la nube, parte en el aeropuerto.  
+- **Seguridad por capas** → API Gateway → Balanceador → Proxy/Firewall (DMZ).  
+- **Despliegue en contenedores (Kubernetes)** → microservicios desacoplados.  
+- **Observabilidad completa** → logs, métricas y trazas.  
+- **Interoperabilidad con sistemas on-premise** mediante adaptadores.  
+
+En palabras simples: este diagrama muestra cómo se despliega el sistema de gestión de vuelos/pasajeros en un entorno híbrido, con seguridad, escalabilidad y monitoreo integrados.
+
+----
 
 ## Parte 4 del Foro **"DIAGRAMA DE DESPLIEGUE Y DE ESTADOS"**
 ----------
-
 ## DIAGRAMA DE ESTADOS
 
 ## ¿Qué es?
@@ -86,3 +143,70 @@ Un diagrama de estados incluye:
 # SOLUCIÓN DIAGRAMA DE ESTADOS 
 ---
 ---
+Este diagrama de estados unificado describe el ciclo de vida de un Vuelo y, en paralelo, cómo evoluciona el BoardingPass de cada pasajero
+
+**El diagrama une los dos mundos:**
+
+- **Vuelo = control operativo.**
+
+- **BoardingPass = control individual de pasajeros.**
+
+Cada transición del BoardingPass depende de un estado del vuelo. Es decir:
+
+- **No puedes hacer check-in si el vuelo no está en AbiertoCheckIn.**
+
+- **No puedes embarcar si el vuelo no está en Embarcando.**
+
+- **No puedes estar Abordado si el vuelo aún no cerró embarque o despegó.**
+
+- **1. Inicio**
+
+El diagrama empieza en [*] → Programado.
+
+Significa que un Vuelo inicia en estado Programado (ya existe en el sistema pero aún no ha abierto procesos).
+
+En ese mismo momento se pueden emitir BoardingPass para los pasajeros (Emitido).
+
+- **2. AbiertoCheckIn**
+
+El Vuelo cambia a AbiertoCheckIn cuando se habilita el proceso de check-in.
+
+En este estado, los BoardingPass emitidos pueden cambiar de Emitido a CheckIn cuando el pasajero hace su registro en línea o en mostrador.
+
+- **3. CerradoCheckIn**
+
+Cuando llega la hora límite, el vuelo cambia a CerradoCheckIn.
+
+Ya no se permiten nuevos check-ins.
+
+Solo avanzan quienes tengan BoardingPass en estado CheckIn.
+
+- **4. Embarcando**
+
+El vuelo entra en Embarcando al abrirse la puerta de abordaje.
+
+Aquí, el BoardingPass pasa por varias fases:
+
+Seguridad → el pasajero pasa por control.
+
+Embarque → el pase se valida en la puerta.
+
+Abordado → el pasajero ya está dentro del avión.
+
+- **5. CerradoEmbarque**
+
+Una vez que se cierran las puertas, el vuelo entra a CerradoEmbarque.
+
+Ya no se permiten más pases de abordar → cualquier BoardingPass no validado queda inválido.
+
+- *6. EnVuelo**
+
+El estado EnVuelo inicia en el despegue.
+
+En este punto, todos los BoardingPass válidos deben estar en estado Abordado.
+
+- **7. Aterrizado → Finalizado**
+
+Después del aterrizaje, el vuelo pasa a Aterrizado y finalmente a Finalizado.
+
+Con esto se da por terminado el ciclo del vuelo y del BoardingPass.
