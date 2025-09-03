@@ -11,7 +11,7 @@ class Usuario {
 
 class Producto {
     +int idProducto
-    +string nombre
+    +string nombre 
     +double precio
     +int stock
     +actualizarStock(cantidad:int)

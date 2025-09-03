@@ -15,7 +15,7 @@ package "Carrito" as PCarrito {
   class ItemCarrito
 }
 
-package "Pedidos" as PPedidos {
+package "Pedidos" as PPedidos { 
   class Pedido
   class DetallePedido
 }

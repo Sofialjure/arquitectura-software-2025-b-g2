@@ -21,7 +21,7 @@ rectangle "Digrama De Casos De Uso (Carrito de Compras)" {
 
 Cliente --> UC1
 Cliente --> UC2
-Cliente --> UC3
+Cliente --> UC3 
 Cliente --> UC4
 Cliente --> UC5
 Cliente --> UC7
