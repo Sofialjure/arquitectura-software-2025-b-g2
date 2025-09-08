@@ -13,3 +13,6 @@ El parcial se dividió en dos partes:
      - **Diagrama de Clases**  
      - **Diagrama de Casos de Uso**  
      - **Diagrama de Paquetes**  
+3. **Taller**
+   - Se asigno un taller llamado **Análisis de Roles y Responsabilidades en Arquitectura** el cual debemos realizar y entregar el dia lunes 08/09/2025.
+   - De igual manera la momento de realizar el examen se nos entrego otra actividad llamada **Flight ,amagement System - Refinf Data Model** que debemos realizar y entregar cuando sea el momento. 
