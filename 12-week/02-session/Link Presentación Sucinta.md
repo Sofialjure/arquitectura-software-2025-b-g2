@@ -1,0 +1,1 @@
+[PRESENTACIÓN SISTEMA DE GESTIÓN CENTRO MÉDICO C4 - UML - BPM ](https://gamma.app/docs/Sistema-de-Gestion-Centro-Medico-j48xra5mh8gv7jy)
