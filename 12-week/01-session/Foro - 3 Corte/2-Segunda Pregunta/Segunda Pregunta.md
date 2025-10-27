@@ -35,6 +35,28 @@ Gracias al registro detallado de cada cambio o decisión, los auditores pueden r
 
 En conclusión, RUP es la metodología más adecuada para sistemas bancarios porque combina la estructura formal de un proceso tradicional con la posibilidad de realizar iteraciones controladas, garantizando así la trazabilidad, el control, la calidad y la estabilidad del software bancario.
 
+## Diagrama UML
+Para demostrar las ventajas de trazabilidad y control que RUP ofrece en un sistema bancario, se utiliza el Diagrama UML de Actividades porque este diagrama ilustra cómo el desarrollo no avanza hasta que se cumplen ciertos hitos formales o puntos de control, asegurando que los requisitos de seguridad, arquitectura y documentación se validen antes de pasar a la siguiente fase.
+
+
+![Diagrama De Actiidades](image.png)
+
+El flujo de RUP se divide en cuatro fases principales, y en cada una se inserta Punto de Control representado en el diagrama como una "partición" que contiene una decisión:
+
+## INICIO:
+En esta fase se definen los objetivos y requisitos del proyecto. Culmina con el Hito 1: Evaluación de Viabilidad, donde el equipo verifica que los aspectos de seguridad y cumplimiento sean posibles antes de avanzar. Esto permite identificar riesgos desde el principio, evitando problemas en etapas posteriores.
+
+## ELABORACIÓN: 
+Esta es la etapa más importante en términos de seguridad porque aquí se diseña la Arquitectura Base y se analizan los riesgos. El Hito 2: Evaluación Arquitectónica y de Riesgos asegura que los especialistas aprueben el diseño antes de continuar, garantizando la calidad y estabilidad del sistema.
+
+## CONSTRUCCIÓN: 
+Se desarrolla el software en iteraciones para mantener flexibilidad, pero al llegar al Hito 3: Capacidad Operacional Inicial, se revisa la trazabilidad del código y la documentación. Si algo no cumple los estándares, se corrige antes de avanzar, asegurando control y seguimiento constante.
+
+## TRANSICIÓN: 
+Es la fase final del proyecto. El Hito 4: Disponibilidad del Producto incluye pruebas de aceptación y una auditoría de cumplimiento. Solo si esta auditoría es exitosa, el sistema se despliega, garantizando facilidad para auditar y cumplimiento normativo.
+
+En resumen, el diagrama de actividades demuestra que RUP "fuerza" el control. A diferencia de otras metodologías, los Hitos garantizan que la trazabilidad y la documentación no son opcionales, sino requisitos obligatorios para la continuidad del proyecto.
+
 ## Bibliografia 
 
 Kassim, M., & Sulaiman Norakmar, A. (2010). An Approach Using RUP Test Discipline Process for Shared Banking Services (SBS) System. In Second International Conference on Computer Research and Development. IEEE. https://doi.org/10.1109/ICCRD.2010.138 https://www.academia.edu/731286/An_Approach_Using_RUP_Test_Discipline_Process_for_Shared_Banking_Services_SBS_System?utm_source 
