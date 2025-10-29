@@ -24,6 +24,30 @@ Por último, la metodología debe promover documentación técnica clara, lo que
 
 En conclusión, desde una perspectiva arquitectónica, la metodología debe garantizar que el sistema financiero sea seguro, estable, escalable y mantenible, combinando control y flexibilidad para responder a las exigencias del sector bancario sin comprometer la confianza ni la calidad.
 
+## Diagrma C4 -  Contexto
+
+El diagrama C4 Nivel 2 (Contenedores) es la mejor herramienta para justificar mis expectativas arquitectónicas, ya que muestra visualmente cómo la metodología debe forzar la separación de las partes del sistema.
+
+Este diagrama ilustra directamente los tres pilares de mi respuesta: Modularidad, Seguridad y Escalabilidad.
+
+![Diagrama De Contedores](image.png)
+
+### Modularidad y Mantenimiento:
+
+* El diagrama separa claramente la Aplicación Web/Móvil de la Lógica de Negocio. Esto demuestra la modularidad que mencioné ya que si tengo que actualizar el diseño del móvil, no toco el núcleo del sistema, facilitando el mantenimiento y las pruebas.
+
+### Seguridad y Control (API Gateway y Compliance):
+
+* API Gateway: Funciona como una puerta de entrada que controla todo el tráfico del sistema. Aquí se aplican los mecanismos de seguridad para verificar quién entra y qué acciones realiza. De esta forma, se mantiene un control total de accesos y un registro completo de las operaciones.
+
+* Servicio de Auditoría y Compliance: Es un módulo independiente que se encarga de los registros y la documentación de auditoría. Al estar separado del código principal, se asegura la integridad de los datos y una documentación técnica clara y confiable.
+
+### Estabilidad y Escalabilidad (Separación del Core):
+
+* La Base de Datos Core (Contable) se mantiene completamente aislada para proteger la información más crítica. Solo el API Gateway puede conectarse directamente a ella para realizar transacciones seguras. Gracias a esta arquitectura en capas, el sistema mantiene su estabilidad y permite que los demás módulos se replican o escalen sin poner en riesgo el núcleo contable.
+
+En conclusión, este Diagrama de Contenedores no es solo un dibujo es el plano que la metodología elegida (como RUP) debe garantizar que se construya. Sin esta estructura clara y modular, no podríamos asegurar la seguridad ni la escalabilidad necesarias para un sistema financiero.
+
 ## Bibliografía
 Convotis. (2024). Arquitectura TI: más flexibilidad con modularidad y la escalabilidad. https://www.convotis.com/es/news/crecimiento-sin-limites-como-las-arquitecturas-de-ti-modulares-hacen-escalable-tu-negocio/
 
