@@ -38,6 +38,35 @@ Fomentaría un ambiente donde todos los miembros del equipo puedan aportar ideas
 
 En conclusión, adoptaría un enfoque híbrido RUP–Scrum, porque me permite equilibrar lo mejor de ambos mundos que sería el control, la trazabilidad y la calidad del proceso formal de RUP, junto con la comunicación, la adaptabilidad y la mejora continua de Scrum. Este equilibrio garantizaría un sistema bancario confiable, seguro y adaptable a los retos del entorno financiero.
 
+## Diagramas 
+
+Para justificar ante mi equipo el enfoque híbrido RUP-Scrum, usaría dos diagramas clave. Primero, el C4 - contexto para establecer la seriedad del proyecto o sea el por qué necesitamos control y luego el UML de Actividades para mostrarles el nuevo flujo de trabajo que equilibra la agilidad con la disciplina que seria el cómo vamos a trabajar.
+
+* ### C4 - contexto: El "Por Qué" 
+Utilizaré el Diagrama C4 - contexto para recordarle al equipo la naturaleza crítica del proyecto.
+
+![Diagrama contexto](<Diagrama Contexto.drawio.svg>)
+
+Esto lo haría para demostrarles que el sistema bancario no es un software cualquiera lo que hace el dl diagrama es que muestra que nuestro Core Bancario interactúa directamente con el Cliente, la Red de Pagos y fundamentalmente, los Reguladores/Auditores.
+
+Este enfoque visual muestra por qué la planificación detallada y la documentación formal son esenciales. No se trata de una preferencia del equipo, sino de una exigencia del regulador, lo que justifica el uso de RUP en las fases iniciales y finales del proyecto.
+
+* ### B. UML de Actividades: El "Cómo"
+El Diagrama UML de Actividades es la herramienta clave para explicar cómo trabajaremos bajo el enfoque híbrido. Este flujo operacional valida las primeras tres de mis cinco propuestas ante el equipo:
+
+![Diagrama de actividades2](image.png)
+
+### Planificación estructurada y reuniones cortas: 
+El diagrama inicia con la fase de INICIO de RUP, donde se hace la planificación a fondo. Luego, en la fase de CONSTRUCCIÓN, se integran Sprints de Scrum, manteniendo la comunicación constante y la capacidad de adaptación.
+
+### Iteraciones controladas y trazabilidad: 
+Cada Sprint termina con un punto de control (GATE RUP). Solo si el producto cumple con los estándares de calidad y trazabilidad, se puede avanzar. Así se logra un equilibrio entre la agilidad de Scrum y el control de RUP.
+
+### Documentación práctica: 
+La documentación no se deja para el final. Se actualiza en cada punto de control, de forma práctica y breve, manteniendo la rigurosidad sin burocracia, para que el proceso sea más ágil pero igual de sólido.
+
+En conclusión usamos el C4 para entender la presión externa y el UML para implementar un flujo de trabajo disciplinado y ágil que nos permitirá entregar un sistema seguro sin sacrificar nuestra capacidad de respuesta. Este equilibrio garantiza el control (RUP) y la colaboración (Scrum).
+
 ## Bibliografía
 
 Fernández, J. M., & Cadelli, S. (2014). Convivencia de metodologías: Scrum y RUP en un proyecto de gran escala [Tesis de grado, Universidad Nacional de La Plata]. Repositorio SEDICI. https://sedici.unlp.edu.ar/handle/10915/47082
